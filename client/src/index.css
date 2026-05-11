@@ -1,0 +1,438 @@
+/* Import Google Fonts – Inter Variable for full weight axis (must precede all other rules) */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./styles/animations.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  /* Corporate Blue Palette */
+  --primary: #1e40af;
+  --primary-foreground: #ffffff;
+  --primary-light: #3b82f6;
+  --primary-dark: #0c2d6b;
+  
+  --sidebar-primary: #1e40af;
+  --sidebar-primary-foreground: #ffffff;
+  
+  --chart-1: #3b82f6;
+  --chart-2: #1e40af;
+  --chart-3: #1e3a8a;
+  --chart-4: #0c2d6b;
+  --chart-5: #082f49;
+  
+  --radius: 0.65rem;
+  
+  /* Light Mode Colors */
+  --background: #ffffff;
+  --foreground: #1f2937;
+  --card: #ffffff;
+  --card-foreground: #1f2937;
+  --popover: #ffffff;
+  --popover-foreground: #1f2937;
+  --secondary: #f3f4f6;
+  --secondary-foreground: #374151;
+  --muted: #e5e7eb;
+  --muted-foreground: #6b7280;
+  --accent: #dbeafe;
+  --accent-foreground: #0c2d6b;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e5e7eb;
+  --input: #f9fafb;
+  --ring: #1e40af;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1f2937;
+  --sidebar-accent: #f3f4f6;
+  --sidebar-accent-foreground: #0c2d6b;
+  --sidebar-border: #e5e7eb;
+  --sidebar-ring: #1e40af;
+}
+
+.dark {
+  /* Dark Mode Colors — Linear-inspired deep surfaces */
+  --primary: #4f8ef7;
+  --primary-foreground: #ffffff;
+  --sidebar-primary: #4f8ef7;
+  --sidebar-primary-foreground: #ffffff;
+
+  /* Near-black base with luminance stepping for elevation */
+  --background: #080d1a;
+  --foreground: #e8edf5;
+  --card: #0f1624;
+  --card-foreground: #e8edf5;
+  --popover: #0f1624;
+  --popover-foreground: #e8edf5;
+  --secondary: #1a2235;
+  --secondary-foreground: #c4ccdb;
+  --muted: #1e2a3d;
+  --muted-foreground: #8b96aa;
+  --accent: #162040;
+  --accent-foreground: #c8d8f8;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #1f2d45;
+  --input: #0f1624;
+  --ring: #4f8ef7;
+  --chart-1: #60a5fa;
+  --chart-2: #3b82f6;
+  --chart-3: #1e40af;
+  --chart-4: #1e3a8a;
+  --chart-5: #0c2d6b;
+  --sidebar: #0f1624;
+  --sidebar-foreground: #e8edf5;
+  --sidebar-accent: #1a2235;
+  --sidebar-accent-foreground: #c8d8f8;
+  --sidebar-border: #1f2d45;
+  --sidebar-ring: #4f8ef7;
+  /* Semi-transparent border for glass surfaces */
+  --glass-border: rgba(255, 255, 255, 0.07);
+  --glass-bg: rgba(255, 255, 255, 0.025);
+  --glass-bg-hover: rgba(255, 255, 255, 0.045);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    font-feature-settings: "cv01", "ss03";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  h1 {
+    letter-spacing: -0.04em;
+  }
+
+  h2 {
+    letter-spacing: -0.03em;
+  }
+  
+  code, pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+  
+  /* Typography Utilities */
+  .font-display {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  
+  .font-body {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+  }
+  
+  .font-code {
+    font-family: 'JetBrains Mono', monospace;
+  }
+  
+  /* Divider Styling */
+  .divider-line {
+    @apply h-px bg-border;
+  }
+  
+  /* Card with left blue border */
+  .card-accent {
+    @apply border-l-4 border-l-primary;
+  }
+
+  /* Glass card — Linear-inspired semi-transparent surface */
+  .card-glass {
+    background: var(--glass-bg, rgba(255, 255, 255, 0.025));
+    border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.07));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .card-glass:hover {
+    background: var(--glass-bg-hover, rgba(255, 255, 255, 0.045));
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  /* Gradient text utility */
+  .text-gradient {
+    background: linear-gradient(135deg, var(--primary) 0%, #60a5fa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Glow on primary buttons */
+  .btn-glow {
+    transition: box-shadow 0.25s ease, transform 0.15s ease;
+  }
+
+  .btn-glow:hover {
+    box-shadow: 0 0 20px rgba(79, 142, 247, 0.4), 0 4px 16px rgba(79, 142, 247, 0.2);
+    transform: translateY(-1px);
+  }
+
+  /* Subtle gradient section background */
+  .section-gradient {
+    position: relative;
+  }
+
+  .section-gradient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(79, 142, 247, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+}
+
+/* ─── Custom cursor halo ──────────────────────────────────────────────────
+   Blue ambient glow that lerps after the pointer. The native cursor stays
+   visible; this is purely decorative. Expands on interactive elements.
+   Adapted from https://github.com/Txemalon/3d-portfolio
+   ──────────────────────────────────────────────────────────────────────── */
+.cursor-halo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 180px;
+  height: 180px;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  will-change: transform, width, height, background;
+  background: radial-gradient(
+    closest-side,
+    rgba(79, 142, 247, 0.16),
+    rgba(30, 64, 175, 0.07) 45%,
+    transparent 70%
+  );
+  filter: blur(2px);
+  transition:
+    opacity 220ms ease,
+    width 320ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    height 320ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 320ms ease;
+}
+.cursor-halo[data-hover="true"] {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(
+    closest-side,
+    rgba(147, 187, 253, 0.22),
+    rgba(79, 142, 247, 0.12) 45%,
+    transparent 72%
+  );
+}
+@media (hover: none) {
+  .cursor-halo { display: none; }
+}
+
+/* ─── Magnetic buttons ────────────────────────────────────────────────────
+   Add data-magnetic to any element. MagneticTargets.tsx sets --mag-x/y.
+   Elements must include this transform in their own transition.
+   ──────────────────────────────────────────────────────────────────────── */
+[data-magnetic] {
+  transform: translate3d(var(--mag-x, 0px), var(--mag-y, 0px), 0);
+  transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ─── Reveal on scroll ────────────────────────────────────────────────────
+   Use the <Reveal> component to wrap sections. The .reveal-in class is
+   added by IntersectionObserver when the element enters the viewport.
+   ──────────────────────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: var(--reveal-from, translate3d(0, 24px, 0));
+  transition:
+    opacity var(--reveal-duration, 700ms) cubic-bezier(0.2, 0.8, 0.2, 1) var(--reveal-delay, 0ms),
+    transform var(--reveal-duration, 700ms) cubic-bezier(0.2, 0.8, 0.2, 1) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.reveal.reveal-in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* ─── Hero word mask reveal ───────────────────────────────────────────────
+   Wrap each word in <span class="hero-word"><span>word</span></span>.
+   The outer span clips; the inner span rises up from below.
+   ──────────────────────────────────────────────────────────────────────── */
+.hero-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+.hero-word > span {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: hero-rise 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes hero-rise {
+  from { transform: translateY(110%); }
+  to   { transform: translateY(0); }
+}
+
+/* Fade-in-up utility (for subtitle, pills, etc.) */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fade-up 700ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Scroll indicator ────────────────────────────────────────────────────
+   Animated vertical rail with a gliding light dot.
+   ──────────────────────────────────────────────────────────────────────── */
+.scroll-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted-foreground);
+}
+.scroll-indicator__rail {
+  position: relative;
+  width: 1px;
+  height: 36px;
+  background: rgba(79, 142, 247, 0.25);
+  overflow: hidden;
+}
+.scroll-indicator__rail::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(180deg, transparent, rgba(79, 142, 247, 0.9));
+  animation: scroll-rail 2s ease-in-out infinite;
+}
+@keyframes scroll-rail {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(300%); }
+}
+
+/* ─── Reduced motion overrides ────────────────────────────────────────────*/
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-word > span {
+    animation: none;
+    transform: none;
+  }
+  .fade-in-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .scroll-indicator__rail::after {
+    animation: none;
+  }
+}
