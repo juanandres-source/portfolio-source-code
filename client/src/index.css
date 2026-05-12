@@ -97,8 +97,8 @@
   --sidebar-primary: #4f8ef7;
   --sidebar-primary-foreground: #ffffff;
 
-  /* Near-black base with luminance stepping for elevation */
-  --background: #080d1a;
+  /* Near-black base — matches hero space background exactly */
+  --background: #060d1a;
   --foreground: #e8edf5;
   --card: #0f1624;
   --card-foreground: #e8edf5;
@@ -132,11 +132,16 @@
   --glass-bg-hover: rgba(255, 255, 255, 0.045);
 }
 
+/* Space background on html so there's never a flash of white */
+html {
+  background-color: #060d1a;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
-  
+
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;

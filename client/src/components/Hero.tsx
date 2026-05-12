@@ -7,8 +7,6 @@ import { Button } from "./ui/button";
 import { AnimatedCounter } from "./AnimatedCounter";
 import { useInViewAnimation } from "@/hooks/useInViewAnimation";
 import { useTranslation } from "react-i18next";
-import StarField from "./StarField";
-
 // Lazy-load the heavy Three.js scene so it doesn't block initial render
 const KeyboardScene = lazy(() => import("./KeyboardScene"));
 
@@ -70,15 +68,8 @@ export default function Hero() {
     <section
       id="home"
       className="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden"
-      /* Background applied via style to override any theme bg-background from parent */
-      style={{ backgroundColor: "#060d1a" }}
     >
-      {/* ── Animated star field (z-index 0, visible above the bg color) ─ */}
-      <div className="absolute inset-0" style={{ zIndex: 0 }}>
-        <StarField count={150} />
-      </div>
-
-      {/* ── Nebula / ambient glow ───────────────────────────────────────── */}
+      {/* ── Nebula / ambient glow — hero-specific blue halos ───────────── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
         <motion.div
           className="absolute -top-1/4 -left-1/4 w-3/4 h-3/4 rounded-full blur-[130px]"

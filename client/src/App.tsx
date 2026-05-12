@@ -7,6 +7,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import CustomCursor from "./components/CustomCursor";
 import MagneticTargets from "./components/MagneticTargets";
+import StarField from "./components/StarField";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -29,9 +30,12 @@ function App() {
   return (
     <ErrorBoundary>
       <ThemeProvider
-        defaultTheme="light"
+        defaultTheme="dark"
         switchable
       >
+        {/* Global space background — fixed, below all content (z-index: -1) */}
+        <StarField count={170} />
+
         <CustomCursor />
         <MagneticTargets />
         <TooltipProvider>
