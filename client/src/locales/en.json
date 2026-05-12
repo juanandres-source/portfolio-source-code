@@ -11,6 +11,7 @@
       "contact": "Contact"
     },
     "hero": {
+      "greeting": "HI, I'M",
       "status": "Open to opportunities",
       "tagline": "Building clean, scalable software from mobile apps to databases.",
       "view_projects": "View My Projects",

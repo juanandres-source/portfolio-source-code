@@ -70,17 +70,16 @@ export default function Hero() {
     <section
       id="home"
       className="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden"
+      /* Background applied via style to override any theme bg-background from parent */
+      style={{ backgroundColor: "#060d1a" }}
     >
-      {/* ── Dark space base ─────────────────────────────────────────── */}
-      <div className="absolute inset-0 -z-10 bg-[#060d1a]" />
-
-      {/* ── Animated star field ─────────────────────────────────────── */}
-      <div className="absolute inset-0 -z-10 opacity-80">
+      {/* ── Animated star field (z-index 0, visible above the bg color) ─ */}
+      <div className="absolute inset-0" style={{ zIndex: 0 }}>
         <StarField count={150} />
       </div>
 
-      {/* ── Nebula / ambient glow ───────────────────────────────────── */}
-      <div className="absolute inset-0 -z-10 pointer-events-none overflow-hidden">
+      {/* ── Nebula / ambient glow ───────────────────────────────────────── */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
         <motion.div
           className="absolute -top-1/4 -left-1/4 w-3/4 h-3/4 rounded-full blur-[130px]"
           style={{ background: "radial-gradient(circle, rgba(30,64,175,0.22) 0%, transparent 70%)" }}
@@ -101,22 +100,23 @@ export default function Hero() {
         />
       </div>
 
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* ── Main content (above stars/glows) ────────────────────────────── */}
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative" style={{ zIndex: 1 }}>
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
           variants={containerVariants}
           initial="hidden"
           animate={prefersReducedMotion ? "visible" : "visible"}
         >
-          {/* ── Left column ─────────────────────────────────────────── */}
+          {/* ── Left column ─────────────────────────────────────────────── */}
           <div className="space-y-6">
 
-            {/* Greeting label */}
+            {/* Greeting label — translated */}
             <motion.p
               className="text-xs font-semibold tracking-[0.35em] uppercase text-[#5eb5f7]/70"
               variants={itemVariants}
             >
-              HOLA, SOY
+              {t("hero.greeting")}
             </motion.p>
 
             {/* Name — huge display */}
@@ -159,7 +159,8 @@ export default function Hero() {
             {/* Badges */}
             <motion.div className="flex items-center gap-3 flex-wrap" variants={itemVariants}>
               <motion.div
-                className="flex items-center gap-2 px-4 py-2 bg-white/8 border border-white/12 rounded-full backdrop-blur-sm"
+                className="flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-sm"
+                style={{ background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.12)" }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -168,7 +169,8 @@ export default function Hero() {
                 </span>
               </motion.div>
               <motion.div
-                className="flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/25 rounded-full"
+                className="flex items-center gap-2 px-4 py-2 rounded-full"
+                style={{ background: "rgba(74,222,128,0.08)", border: "1px solid rgba(74,222,128,0.25)" }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -210,7 +212,8 @@ export default function Hero() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-white/25 text-white hover:bg-white/10 font-medium rounded-lg group w-full sm:w-auto"
+                  className="font-medium rounded-lg group w-full sm:w-auto"
+                  style={{ borderColor: "rgba(255,255,255,0.25)", color: "white", background: "transparent" }}
                 >
                   <Download className="mr-2 h-4 w-4" />
                   {t("hero.download_cv")}
@@ -221,7 +224,8 @@ export default function Hero() {
             {/* Stats */}
             <motion.div
               ref={statsRef}
-              className="grid grid-cols-3 gap-4 pt-6 border-t border-white/10"
+              className="grid grid-cols-3 gap-4 pt-6"
+              style={{ borderTop: "1px solid rgba(255,255,255,0.10)" }}
               variants={itemVariants}
             >
               {[
@@ -241,31 +245,48 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* ── 3D Keyboard — md+ only ──────────────────────────────── */}
+          {/* ── 3D Keyboard — visible on all screens ────────────────────── */}
           <motion.div
-            className="hidden md:block"
-            style={{ height: "540px" }}
+            className="w-full"
+            style={{ height: "320px" }}
+            /* Mobile: 320px height; overridden to 520px on md+ */
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.4, delay: 0.6 }}
           >
-            <Suspense
-              fallback={
-                <div className="w-full h-full flex items-center justify-center">
-                  <div className="w-10 h-10 border-2 border-[#5eb5f7] border-t-transparent rounded-full animate-spin opacity-40" />
-                </div>
-              }
-            >
-              <KeyboardScene />
-            </Suspense>
+            {/* On md+ we show a taller canvas */}
+            <div className="hidden md:block w-full h-full" style={{ height: "520px" }}>
+              <Suspense
+                fallback={
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div className="w-10 h-10 border-2 border-[#5eb5f7] border-t-transparent rounded-full animate-spin opacity-40" />
+                  </div>
+                }
+              >
+                <KeyboardScene />
+              </Suspense>
+            </div>
+
+            {/* On mobile we show a smaller canvas */}
+            <div className="md:hidden w-full" style={{ height: "300px" }}>
+              <Suspense
+                fallback={
+                  <div className="w-full h-full flex items-center justify-center">
+                    <div className="w-10 h-10 border-2 border-[#5eb5f7] border-t-transparent rounded-full animate-spin opacity-40" />
+                  </div>
+                }
+              >
+                <KeyboardScene />
+              </Suspense>
+            </div>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* ── Scroll indicator ────────────────────────────────────────── */}
+      {/* ── Scroll indicator ─────────────────────────────────────────────── */}
       <div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 fade-in-up"
-        style={{ "--d": "1400ms" } as React.CSSProperties}
+        style={{ "--d": "1400ms", zIndex: 1 } as React.CSSProperties}
       >
         <div className="scroll-indicator flex-col">
           <div className="scroll-indicator__rail" />

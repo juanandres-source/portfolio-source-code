@@ -11,6 +11,7 @@
       "contact": "Contact"
     },
     "hero": {
+      "greeting": "BONJOUR, JE SUIS",
       "status": "Ouvert aux opportunités",
       "tagline": "Je développe des logiciels propres et évolutifs, des applications mobiles aux bases de données.",
       "view_projects": "Voir mes projets",

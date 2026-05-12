@@ -11,6 +11,7 @@
       "contact": "Contacto"
     },
     "hero": {
+      "greeting": "HOLA, SOY",
       "status": "Disponible para trabajar",
       "tagline": "Desarrollo software limpio y escalable, desde apps móviles hasta bases de datos.",
       "view_projects": "Ver mis proyectos",
