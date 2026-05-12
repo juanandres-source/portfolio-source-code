@@ -1,12 +1,15 @@
 import { PERSONAL_INFO } from "@/lib/constants";
 import { ArrowRight, Download } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import React from "react";
 import { Button } from "./ui/button";
 import { AnimatedCounter } from "./AnimatedCounter";
 import { useInViewAnimation } from "@/hooks/useInViewAnimation";
 import { useTranslation } from "react-i18next";
+
+// Lazy-load the heavy Three.js scene so it doesn't block initial render
+const KeyboardScene = lazy(() => import("./KeyboardScene"));
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -61,10 +64,6 @@ export default function Hero() {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
   } as any;
-
-  const floatingVariants = {
-    floating: { y: [0, -20, 0], transition: { duration: 6, repeat: Infinity, ease: "easeInOut" as const } },
-  };
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
@@ -197,40 +196,23 @@ export default function Hero() {
             </motion.div>
           </div>
 
+          {/* 3D Keyboard — visible on md+ screens */}
           <motion.div
-            className="hidden md:flex items-center justify-center"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            className="hidden md:block"
+            style={{ height: "460px" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1.2, delay: 0.5 }}
           >
-            <motion.div className="relative w-80 h-80" variants={floatingVariants} animate="floating">
-              <motion.div
-                className="absolute inset-0 rounded-full border border-white/10 dark:border-white/[0.07] bg-gradient-to-br from-blue-50/80 to-blue-100/80 dark:from-[#0f1624]/80 dark:to-[#1a2235]/80 flex items-center justify-center overflow-hidden shadow-2xl"
-                style={{ backdropFilter: "blur(4px)" }}
-                whileHover={{ boxShadow: "0 0 60px rgba(79, 142, 247, 0.25), 0 25px 50px -12px rgba(30, 64, 175, 0.3)" }}
-                transition={{ duration: 0.3 }}
-              >
-                <div className="w-full h-full bg-gradient-to-br from-blue-50/50 to-blue-100/50 dark:from-[#0f1624]/50 dark:to-[#1a2235]/50 flex items-center justify-center p-8">
-                  <motion.img
-                    src="/logo.png"
-                    alt="JAF Logo"
-                    className="w-full h-full object-contain"
-                    animate={{ rotate: [0, 5, -5, 0] }}
-                    transition={{ duration: 4, repeat: Infinity }}
-                  />
+            <Suspense
+              fallback={
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin opacity-40" />
                 </div>
-              </motion.div>
-              <motion.div
-                className="absolute -top-4 -right-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl"
-                animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-                transition={{ duration: 4, repeat: Infinity }}
-              />
-              <motion.div
-                className="absolute -bottom-4 -left-4 w-32 h-32 bg-primary/5 rounded-full blur-3xl"
-                animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
-                transition={{ duration: 5, repeat: Infinity, delay: 0.5 }}
-              />
-            </motion.div>
+              }
+            >
+              <KeyboardScene />
+            </Suspense>
           </motion.div>
         </motion.div>
       </div>
