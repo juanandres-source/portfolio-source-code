@@ -1,0 +1,255 @@
+{
+  "translation": {
+    "nav": {
+      "home": "Accueil",
+      "about": "À propos",
+      "education": "Formation",
+      "projects": "Projets",
+      "awards": "Récompenses",
+      "skills": "Compétences",
+      "languages": "Langues",
+      "contact": "Contact"
+    },
+    "hero": {
+      "status": "Ouvert aux opportunités",
+      "tagline": "Je développe des logiciels propres et évolutifs, des applications mobiles aux bases de données.",
+      "view_projects": "Voir mes projets",
+      "download_cv": "Télécharger le CV",
+      "scroll": "Défiler pour explorer",
+      "stat_years": "Années d'apprentissage",
+      "stat_languages": "Langues",
+      "stat_projects": "Projets majeurs",
+      "typing_words": ["Développeur Logiciel", "Ingénieur Mobile", "Développeur Backend", "Étudiant en Ingénierie Informatique"]
+    },
+    "about": {
+      "title": "À propos de moi",
+      "summary": "Étudiant en 4e année d'ingénierie informatique, passionné par le développement logiciel, avec de solides bases techniques. Je cherche ma première opportunité professionnelle pour rejoindre une équipe, apporter de la valeur et continuer à grandir dans le secteur technologique.",
+      "currently_studying": "En cours d'études",
+      "exchange": "Semestre d'échange (Printemps 2025)",
+      "linkedin": "Mon profil LinkedIn",
+      "tech_stack": "Stack Technologique",
+      "get_in_touch": "Me contacter"
+    },
+    "education": {
+      "title": "Formation",
+      "highlights_title": "🎓 Points forts académiques",
+      "highlights": [
+        "Double spécialité en Systèmes d'Information & Technologies de l'Information",
+        "Expérience internationale d'échange en France",
+        "Cours de niveau Master 1 en Génie Logiciel & BigData",
+        "Certification Cambridge d'anglais C1"
+      ],
+      "entries": [
+        {
+          "degree": "Ingénierie Informatique",
+          "specialization": "Double spécialité : Systèmes d'Information & Technologies de l'Information",
+          "description": "Cursus en ingénierie informatique axé sur les Systèmes d'Information et les Technologies de l'Information."
+        },
+        {
+          "degree": "Ingénierie Informatique (Échange)",
+          "specialization": "Master 1 — Génie Logiciel & BigData",
+          "description": "Programme d'échange au semestre de printemps axé sur le Génie Logiciel et les technologies BigData."
+        }
+      ]
+    },
+    "projects": {
+      "title": "Projets & Expérience",
+      "featured": "Projet Vedette",
+      "technologies": "TECHNOLOGIES",
+      "tech_stack": "STACK TECHNIQUE",
+      "view_code": "Voir le code",
+      "filter_all": "Tous",
+      "contributor": "Contributeur Open Source",
+      "items": [
+        {
+          "role": "Développeur d'Applications Mobiles Natives",
+          "description": "Développement en solo d'une application Android avec Kotlin et Jetpack Compose selon l'architecture MVVM. Intégration de services IA et REST APIs avec optimisation réseau asynchrone via Coroutines pour réduire les requêtes redondantes.",
+          "highlights": [
+            "Développement en solo d'une application Android complète",
+            "Implémentation de l'architecture MVVM",
+            "Intégration de services IA",
+            "Optimisation réseau asynchrone avec Coroutines",
+            "Réduction des requêtes API redondantes"
+          ]
+        },
+        {
+          "role": "Développeur Principal",
+          "description": "Gestion d'une équipe de développement pour créer une SPA sur le thème Dragon Ball. Intégration de l'API Dragon Ball externe via des services asynchrones avec une architecture modulaire Angular/TypeScript.",
+          "highlights": [
+            "Direction et coordination de l'équipe",
+            "Conception d'architecture modulaire",
+            "Intégration d'API externe",
+            "Implémentation de services asynchrones",
+            "Flux de collaboration GitHub"
+          ]
+        },
+        {
+          "role": "Développeur Backend & Base de Données",
+          "description": "Conception de la structure de base de données relationnelle (Modèle ER) avec MySQL Workbench et Microsoft Access. Développement et optimisation de requêtes SQL complexes pour la récupération et l'intégrité des données.",
+          "highlights": [
+            "Conception et implémentation du Modèle ER",
+            "Optimisation de requêtes SQL complexes",
+            "Gestion de l'intégrité des données",
+            "Normalisation de bases de données",
+            "Optimisation des performances"
+          ]
+        },
+        {
+          "role": "Designer & Développeur Full-Stack",
+          "description": "Conception et développement complet de mon portfolio personnel : SPA multilingue (ES/EN/FR) avec React 19 et TypeScript, architecture full-stack type-safe via tRPC v11 + Express, chatbot IA contextuel avec l'API Claude, animations fluides avec Framer Motion, UI responsive mode sombre via Tailwind CSS v4 & shadcn/ui, et validation de schémas de bout en bout avec Zod.",
+          "highlights": [
+            "Architecture full-stack type-safe : React 19 + tRPC v11 + Express + Zod",
+            "Internationalisation complète ES/EN/FR avec i18next et détection automatique de langue",
+            "Chatbot IA dynamique avec l'API Claude et prompt système contextuel basé sur le profil",
+            "UI responsive mode sombre avec Tailwind CSS v4, shadcn/ui et variables CSS personnalisées",
+            "Animations avancées de scroll, survol et entrée avec Framer Motion",
+            "Architecture de composants modulaire et réutilisable, conçue pour l'évolutivité"
+          ]
+        },
+        {
+          "role": "Contributeur Open Source",
+          "description": "Contribution au développement et à l'amélioration des fonctionnalités du projet DriveAlong. Collaboration sur un projet open source de conduite assistée, apportant des améliorations de code et de nouvelles fonctionnalités.",
+          "highlights": [
+            "Contribution active à un projet open source",
+            "Développement de nouvelles fonctionnalités",
+            "Amélioration du code existant",
+            "Collaboration en équipe distribuée"
+          ]
+        }
+      ]
+    },
+    "awards": {
+      "title": "Prix & Reconnaissances",
+      "subtitle": "Réalisations académiques et compétitions",
+      "items": [
+        {
+          "title": "Prix de Statistiques — Baccalauréat",
+          "subtitle": "XI Concours du Sud 2022",
+          "organizer": "Incubateur de Sondages et Expériences",
+          "description": "Reconnaissance au concours régional de statistiques du baccalauréat, distingué pour la qualité et la rigueur méthodologique du travail présenté.",
+          "category": "Académique"
+        }
+      ]
+    },
+    "skills": {
+      "title": "Compétences & Technologies",
+      "subtitle": "Un aperçu complet de mon expertise technique dans différents domaines",
+      "continuous_learning_title": "💡 Apprentissage Continu",
+      "continuous_learning_text": "J'élargis constamment mes connaissances techniques en restant à jour avec les dernières technologies en développement logiciel. Mon expérience couvre plusieurs domaines, ce qui me permet d'aborder les problèmes sous différents angles.",
+      "learning_items": [
+        "Bases solides en principes de génie logiciel et patterns de conception",
+        "Expérience en développement frontend et backend",
+        "Expertise en développement mobile avec des frameworks modernes",
+        "Compétences en conception et optimisation de bases de données"
+      ],
+      "stat_expert": "Compétences Expert",
+      "stat_intermediate": "Intermédiaire",
+      "stat_familiar": "Familiarité",
+      "stat_total": "Total Technologies"
+    },
+    "languages": {
+      "title": "Langues",
+      "proficiency": "MAÎTRISE",
+      "certification": "CERTIFICATION",
+      "details": {
+        "es": "Locuteur natif espagnol d'Almería",
+        "en": "Certification d'anglais Cambridge C1",
+        "fr": "Français intermédiaire B1/B2 avec expérience d'échange à Toulon, France"
+      }
+    },
+    "interests": {
+      "title": "Intérêts & Loisirs",
+      "subtitle": "Au-delà du code, je suis passionné par diverses activités qui me stimulent et m'inspirent.",
+      "tab_running": "🏃 Course",
+      "tab_chess": "♟️ Échecs",
+      "tab_learning": "📚 Apprentissage",
+      "tab_other": "⚡ Autres",
+      "running": {
+        "time": "Temps",
+        "pace": "Allure",
+        "view_strava": "Voir sur Strava →",
+        "philosophy_title": "🏃 Philosophie de la Course",
+        "philosophy_text": "La course est mon évasion et mon défi. Chaque kilomètre est une occasion de repousser mes limites, d'améliorer ma santé mentale et de découvrir de nouveaux endroits. Je crois en la constance plutôt qu'en l'intensité, et je travaille toujours à battre mes records personnels.",
+        "stat_half_marathon": "Semi-Marathon MP",
+        "stat_5k": "5K MP",
+        "stat_favorite": "Distance Favorite",
+        "stat_half_marathon_val": "1:29:38",
+        "stat_5k_val": "19:18",
+        "stat_favorite_val": "Semi-Marathon"
+      },
+      "chess": {
+        "elo": "Elo",
+        "peak": "Pic",
+        "games": "Parties",
+        "wins": "Victoires",
+        "losses": "Défaites",
+        "view_chesscom": "Voir sur Chess.com →",
+        "philosophy_title": "♟️ Philosophie des Échecs",
+        "philosophy_text": "Les échecs sont mon terrain de jeu intellectuel. Ils m'enseignent la stratégie, la patience et la prise de décision sous pression. J'apprécie tous les contrôles de temps et je travaille toujours à améliorer mon classement et ma compréhension du jeu."
+      },
+      "learning": {
+        "title": "📚 Apprentissage Continu",
+        "text": "Je suis passionné par l'élargissement de mes connaissances via des cours, des livres et des projets pratiques. J'explore actuellement des sujets avancés en architecture logicielle, cloud computing et technologies émergentes."
+      },
+      "other": {
+        "title": "⚡ Autres Intérêts",
+        "text": "Au-delà de mes loisirs principaux, j'aime explorer de nouvelles technologies, contribuer à des projets open source et me connecter avec la communauté tech. Je suis toujours ouvert à de nouvelles expériences et opportunités d'apprentissage."
+      }
+    },
+    "contact": {
+      "title": "Me contacter",
+      "subtitle": "Je suis toujours intéressé par de nouvelles opportunités et projets.",
+      "email_label": "Email",
+      "phone_label": "Téléphone",
+      "connect_label": "Réseaux",
+      "open_label": "Ouvert aux opportunités",
+      "open_text": "Je recherche activement ma première opportunité professionnelle en développement logiciel.",
+      "field_name": "Nom complet",
+      "field_email": "Adresse e-mail",
+      "field_subject": "Sujet",
+      "field_message": "Message",
+      "placeholder_name": "Votre nom",
+      "placeholder_email": "votre.email@exemple.com",
+      "placeholder_subject": "De quoi s'agit-il ?",
+      "placeholder_message": "Votre message ici...",
+      "send": "Envoyer le message",
+      "sending": "Envoi en cours...",
+      "success_title": "Message envoyé !",
+      "success_text": "Merci de m'avoir contacté. Je vous répondrai dès que possible."
+    },
+    "footer": {
+      "tagline": "Développeur Logiciel spécialisé en Web, Mobile & Bases de données",
+      "quick_links": "Liens rapides",
+      "connect": "Réseaux",
+      "contact": "Contact",
+      "rights": "Tous droits réservés.",
+      "made_with": "Fait avec",
+      "made_using": "avec React & Tailwind CSS",
+      "built_by": "Ce portfolio a été conçu et développé par Juan Andrés Aliaga Fuentes."
+    },
+    "chat": {
+      "title": "Posez une question sur Juan Andrés",
+      "powered": "Assistant IA",
+      "placeholder": "Tapez votre question...",
+      "greeting": "Bonjour ! Je suis l'assistant IA de Juan Andrés. Vous pouvez me poser des questions sur ses compétences, projets ou expériences.",
+      "error": "Désolé, une erreur s'est produite. Veuillez réessayer."
+    },
+    "keyboard": {
+      "angular":     "Framework pour applications web à grande échelle",
+      "typescript":  "JavaScript avec types statiques",
+      "kotlin":      "Développement Android moderne",
+      "javascript":  "Le langage du web",
+      "html5":       "Structure et sémantique web",
+      "css":         "Design et styles web",
+      "react":       "UI déclarative avec composants",
+      "mysql":       "Base de données relationnelle",
+      "php":         "Backend web classique",
+      "python":      "Scripts et automatisation",
+      "git":         "Contrôle de version",
+      "docker":      "Conteneurs et déploiement",
+      "tailwindcss": "CSS utility-first moderne",
+      "android":     "Applications mobiles natives",
+      "postgresql":  "Base de données avancée"
+    }
+  }
+}

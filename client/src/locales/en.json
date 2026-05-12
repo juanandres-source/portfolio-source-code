@@ -1,0 +1,255 @@
+{
+  "translation": {
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "education": "Education",
+      "projects": "Projects",
+      "awards": "Awards",
+      "skills": "Skills",
+      "languages": "Languages",
+      "contact": "Contact"
+    },
+    "hero": {
+      "status": "Open to opportunities",
+      "tagline": "Building clean, scalable software from mobile apps to databases.",
+      "view_projects": "View My Projects",
+      "download_cv": "Download CV",
+      "scroll": "Scroll to explore",
+      "stat_years": "Years Learning",
+      "stat_languages": "Languages",
+      "stat_projects": "Major Projects",
+      "typing_words": ["Software Developer", "Mobile Engineer", "Backend Developer", "Computer Engineering Student"]
+    },
+    "about": {
+      "title": "About Me",
+      "summary": "4th-year Computer Engineering student passionate about software development, equipped with solid technical foundations. Looking for a first professional opportunity to join a team, add value, and continue growing in the tech sector.",
+      "currently_studying": "Currently Studying",
+      "exchange": "Exchange Semester (Spring 2025)",
+      "linkedin": "My LinkedIn Profile",
+      "tech_stack": "Tech Stack",
+      "get_in_touch": "Get in Touch"
+    },
+    "education": {
+      "title": "Education",
+      "highlights_title": "🎓 Academic Highlights",
+      "highlights": [
+        "Double major in Information Systems & Information Technologies",
+        "International exchange experience in France",
+        "Master 1 level coursework in Software Engineering & BigData",
+        "C1 Cambridge English Certification"
+      ],
+      "entries": [
+        {
+          "degree": "Computer Engineering",
+          "specialization": "Double major: Information Systems & Information Technologies",
+          "description": "Pursuing a degree in Computer Engineering with a focus on Information Systems and Information Technologies."
+        },
+        {
+          "degree": "Computer Engineering (Exchange)",
+          "specialization": "Master 1 — Software Engineering & BigData",
+          "description": "Spring Semester exchange program focusing on Software Engineering and BigData technologies."
+        }
+      ]
+    },
+    "projects": {
+      "title": "Projects & Experience",
+      "featured": "Featured Project",
+      "technologies": "TECHNOLOGIES",
+      "tech_stack": "TECH STACK",
+      "view_code": "View Code",
+      "filter_all": "All",
+      "contributor": "Open Source Contributor",
+      "items": [
+        {
+          "role": "Native Mobile Application Developer",
+          "description": "Solo development of an Android app using Kotlin and Jetpack Compose with MVVM architecture. Integrated AI services and REST APIs with async network optimization using Coroutines to reduce redundant requests.",
+          "highlights": [
+            "Solo development of complete Android application",
+            "MVVM architecture implementation",
+            "AI services integration",
+            "Async network optimization with Coroutines",
+            "Reduced redundant API requests"
+          ]
+        },
+        {
+          "role": "Lead Developer",
+          "description": "Managed a development team to build a Single Page Application with Dragon Ball theme. Integrated external Dragon Ball API via async services with modular Angular/TypeScript architecture.",
+          "highlights": [
+            "Team leadership and coordination",
+            "Modular architecture design",
+            "External API integration",
+            "Async service implementation",
+            "GitHub collaboration workflow"
+          ]
+        },
+        {
+          "role": "Backend & Database Developer",
+          "description": "Designed relational database structure (ER Model) using MySQL Workbench and Microsoft Access. Developed and optimized complex SQL queries for data retrieval and integrity.",
+          "highlights": [
+            "ER Model design and implementation",
+            "Complex SQL query optimization",
+            "Data integrity management",
+            "Database normalization",
+            "Performance optimization"
+          ]
+        },
+        {
+          "role": "Designer & Full-Stack Developer",
+          "description": "Full design and development of my personal portfolio: multilingual SPA (ES/EN/FR) with React 19 and TypeScript, type-safe full-stack architecture via tRPC v11 + Express, context-aware AI chatbot with Claude API, smooth animations with Framer Motion, responsive dark-mode UI with Tailwind CSS v4 & shadcn/ui, and end-to-end schema validation with Zod.",
+          "highlights": [
+            "Type-safe full-stack architecture: React 19 + tRPC v11 + Express + Zod",
+            "Complete ES/EN/FR i18n with i18next and automatic browser language detection",
+            "Dynamic AI chatbot powered by Claude API with profile-based contextual system prompt",
+            "Responsive dark-mode UI with Tailwind CSS v4, shadcn/ui and custom CSS variables",
+            "Advanced scroll, hover and entry animations with Framer Motion",
+            "Modular, reusable component architecture designed for scalability"
+          ]
+        },
+        {
+          "role": "Open Source Contributor",
+          "description": "Contributed to the development and improvement of features for the DriveAlong project. Collaboration on an open source assisted driving project, delivering code improvements and new features.",
+          "highlights": [
+            "Active contribution to open source project",
+            "Development of new features",
+            "Improvement of existing code",
+            "Collaboration in distributed team"
+          ]
+        }
+      ]
+    },
+    "awards": {
+      "title": "Awards & Recognition",
+      "subtitle": "Academic achievements and competitions",
+      "items": [
+        {
+          "title": "Statistics Award — Baccalaureate",
+          "subtitle": "XI Southern Contest 2022",
+          "organizer": "Survey & Experiment Incubator",
+          "description": "Recognition in the regional baccalaureate statistics contest, standing out for the quality and methodological rigor of the submitted work.",
+          "category": "Academic"
+        }
+      ]
+    },
+    "skills": {
+      "title": "Skills & Technologies",
+      "subtitle": "A comprehensive overview of my technical expertise across different domains",
+      "continuous_learning_title": "💡 Continuous Learning",
+      "continuous_learning_text": "I'm constantly expanding my technical knowledge and staying updated with the latest technologies in software development. My experience spans across multiple domains, allowing me to approach problems from different perspectives.",
+      "learning_items": [
+        "Strong foundation in software engineering principles and design patterns",
+        "Experience with both frontend and backend development",
+        "Mobile development expertise with modern frameworks",
+        "Database design and optimization skills"
+      ],
+      "stat_expert": "Expert Skills",
+      "stat_intermediate": "Intermediate",
+      "stat_familiar": "Familiar",
+      "stat_total": "Total Technologies"
+    },
+    "languages": {
+      "title": "Languages",
+      "proficiency": "PROFICIENCY",
+      "certification": "CERTIFICATION",
+      "details": {
+        "es": "Native Spanish speaker from Almería",
+        "en": "Cambridge C1 English certification",
+        "fr": "Intermediate French B1/B2 with exchange experience in Toulon, France"
+      }
+    },
+    "interests": {
+      "title": "Interests & Hobbies",
+      "subtitle": "Beyond coding, I'm passionate about various activities that challenge and inspire me.",
+      "tab_running": "🏃 Running",
+      "tab_chess": "♟️ Chess",
+      "tab_learning": "📚 Learning",
+      "tab_other": "⚡ Other",
+      "running": {
+        "time": "Time",
+        "pace": "Pace",
+        "view_strava": "View on Strava →",
+        "philosophy_title": "🏃 Running Philosophy",
+        "philosophy_text": "Running is my escape and my challenge. Every kilometer is an opportunity to push my limits, improve my mental health, and discover new places. I believe in consistency over intensity, and I'm always working to beat my personal records.",
+        "stat_half_marathon": "Half Marathon PB",
+        "stat_5k": "5K PB",
+        "stat_favorite": "Favorite Distance",
+        "stat_half_marathon_val": "1:29:38",
+        "stat_5k_val": "19:18",
+        "stat_favorite_val": "Half Marathon"
+      },
+      "chess": {
+        "elo": "Elo",
+        "peak": "Peak",
+        "games": "Games",
+        "wins": "Wins",
+        "losses": "Losses",
+        "view_chesscom": "View on Chess.com →",
+        "philosophy_title": "♟️ Chess Philosophy",
+        "philosophy_text": "Chess is my intellectual playground. It teaches me strategy, patience, and decision-making under pressure. I enjoy all time controls and am always working to improve my rating and understanding of the game."
+      },
+      "learning": {
+        "title": "📚 Continuous Learning",
+        "text": "I'm passionate about expanding my knowledge through courses, books, and hands-on projects. Currently exploring advanced topics in software architecture, cloud computing, and emerging technologies."
+      },
+      "other": {
+        "title": "⚡ Other Interests",
+        "text": "Beyond my main hobbies, I enjoy exploring new technologies, contributing to open-source projects, and connecting with the tech community. I'm always open to new experiences and learning opportunities."
+      }
+    },
+    "contact": {
+      "title": "Get In Touch",
+      "subtitle": "I'm always interested in hearing about new opportunities and projects.",
+      "email_label": "Email",
+      "phone_label": "Phone",
+      "connect_label": "Connect",
+      "open_label": "Open to Opportunities",
+      "open_text": "I'm actively looking for my first professional opportunity in software development.",
+      "field_name": "Full Name",
+      "field_email": "Email Address",
+      "field_subject": "Subject",
+      "field_message": "Message",
+      "placeholder_name": "Your name",
+      "placeholder_email": "your.email@example.com",
+      "placeholder_subject": "What's this about?",
+      "placeholder_message": "Your message here...",
+      "send": "Send Message",
+      "sending": "Sending...",
+      "success_title": "Message sent!",
+      "success_text": "Thanks for reaching out. I'll get back to you as soon as possible."
+    },
+    "footer": {
+      "tagline": "Software Developer specializing in Web, Mobile & Databases",
+      "quick_links": "Quick Links",
+      "connect": "Connect",
+      "contact": "Contact",
+      "rights": "All rights reserved.",
+      "made_with": "Made with",
+      "made_using": "using React & Tailwind CSS",
+      "built_by": "This portfolio is designed and built by Juan Andrés Aliaga Fuentes."
+    },
+    "chat": {
+      "title": "Ask about Juan Andrés",
+      "powered": "AI Assistant",
+      "placeholder": "Type your question...",
+      "greeting": "Hi! I'm Juan Andrés's AI assistant. You can ask me about his skills, projects, or experience.",
+      "error": "Sorry, an error occurred. Please try again."
+    },
+    "keyboard": {
+      "angular":     "Web app framework at scale",
+      "typescript":  "JavaScript with static types",
+      "kotlin":      "Modern Android development",
+      "javascript":  "The language of the web",
+      "html5":       "Web structure and semantics",
+      "css":         "Web design and styling",
+      "react":       "Declarative UI with components",
+      "mysql":       "Relational database",
+      "php":         "Classic web backend",
+      "python":      "Scripts and automation",
+      "git":         "Version control",
+      "docker":      "Containers and deployment",
+      "tailwindcss": "Modern utility-first CSS",
+      "android":     "Native mobile apps",
+      "postgresql":  "Advanced relational database"
+    }
+  }
+}

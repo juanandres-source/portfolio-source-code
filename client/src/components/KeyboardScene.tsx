@@ -3,17 +3,18 @@
  * Built with @react-three/fiber + three.js.
  * Adapted from https://github.com/Txemalon/3d-portfolio (MIT).
  *
- * Simplifications vs. original:
- *  - No SeasonProvider: blue portfolio palette is hardcoded.
- *  - No Text3D font file: tooltip is an HTML overlay via React state.
- *  - No audio: removed switch click sounds.
- *  - Single idle pose (no section-based state machine).
+ * Features:
+ *  - Light blue keyboard base matching Txema's portfolio aesthetic.
+ *  - Key tooltips fully translated via react-i18next.
+ *  - Idle cinematic animation (yaw / pitch / roll oscillation + vertical float).
+ *  - Keycap press animation and emissive glow on hover.
  */
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, Lightformer } from "@react-three/drei";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
+import { useTranslation } from "react-i18next";
 import {
   siAngular,
   siKotlin,
@@ -34,36 +35,18 @@ import {
 
 // ─── Palette ──────────────────────────────────────────────────────────────────
 const PALETTE = {
-  keyboardBase: "#bfcfe8",   // light blue-grey plastic base
+  keyboardBase: "#5eb5f7",   // light blue — matches Txema's portfolio
   accent: "#4f8ef7",         // portfolio primary blue
 };
 
 // ─── Tech stack ───────────────────────────────────────────────────────────────
 type SkillIcon = { title: string; slug: string; path: string; hex: string };
 
-const TAGLINES: Record<string, string> = {
-  angular:      "Framework para apps web a escala",
-  kotlin:       "Desarrollo Android moderno",
-  typescript:   "JavaScript con tipos estáticos",
-  javascript:   "El lenguaje de la web",
-  html5:        "Estructura y semántica web",
-  css:          "Diseño y estilos web",
-  react:        "UI declarativa con componentes",
-  mysql:        "Base de datos relacional",
-  php:          "Backend web clásico",
-  python:       "Scripts y automatización",
-  git:          "Control de versiones",
-  docker:       "Contenedores y despliegue",
-  tailwindcss:  "CSS utility-first moderno",
-  android:      "Apps móviles nativas",
-  postgresql:   "Base de datos avanzada",
-};
-
 // 5 columns × 3 rows = 15 keycaps
 const SKILLS: readonly (readonly SkillIcon[])[] = [
-  [siAngular,  siTypescript, siKotlin,     siJavascript, siHtml5],
-  [siCss,      siReact,      siMysql,      siPhp,        siPython],
-  [siGit,      siDocker,     siTailwindcss, siAndroid,   siPostgresql],
+  [siAngular,  siTypescript, siKotlin,      siJavascript, siHtml5],
+  [siCss,      siReact,      siMysql,       siPhp,        siPython],
+  [siGit,      siDocker,     siTailwindcss, siAndroid,    siPostgresql],
 ] as const;
 
 // ─── Geometry helpers ─────────────────────────────────────────────────────────
@@ -137,18 +120,18 @@ function makeIconTexture(svgPath: string, color: string, size = 256): THREE.Canv
   return tex;
 }
 
-// ─── Constants ────────────────────────────────────────────────────────────────
+// ─── Constants (scaled up ~25 % vs previous version) ─────────────────────────
 const COLS = 5, ROWS = 3;
-const KEYCAP_SIZE = 0.4;
-const KEYCAP_HEIGHT = 0.28;
-const KEYCAP_TOP_SCALE = 0.78;
-const COL_SPACING = 0.42;
-const ROW_SPACING = 0.42;
-const BASE_WIDTH = 2.4;
-const BASE_DEPTH = 1.4;
-const BASE_HEIGHT = 0.26;
-const ICON_PLANE_SIZE = KEYCAP_SIZE * KEYCAP_TOP_SCALE * 0.78;
-const PRESS_DEPTH = 0.15;
+const KEYCAP_SIZE       = 0.50;
+const KEYCAP_HEIGHT     = 0.32;
+const KEYCAP_TOP_SCALE  = 0.78;
+const COL_SPACING       = 0.52;
+const ROW_SPACING       = 0.52;
+const BASE_WIDTH        = 2.95;
+const BASE_DEPTH        = 1.75;
+const BASE_HEIGHT       = 0.30;
+const ICON_PLANE_SIZE   = KEYCAP_SIZE * KEYCAP_TOP_SCALE * 0.78;
+const PRESS_DEPTH       = 0.14;
 
 // ─── Keycap component ─────────────────────────────────────────────────────────
 function Keycap({
@@ -166,14 +149,14 @@ function Keycap({
   onHoverChange: (h: boolean) => void;
   wavePhase: number;
 }) {
-  const pressRef = useRef<THREE.Group>(null);
-  const pressY = useRef(0);
-  const bobAmp = useRef(0);
-  const matRef = useRef<THREE.MeshPhysicalMaterial>(null);
+  const pressRef  = useRef<THREE.Group>(null);
+  const pressY    = useRef(0);
+  const bobAmp    = useRef(0);
+  const matRef    = useRef<THREE.MeshPhysicalMaterial>(null);
 
-  const white = useMemo(() => new THREE.Color("#ffffff"), []);
-  const accent = useMemo(() => new THREE.Color(PALETTE.accent), []);
-  const bodyTint = useMemo(() => new THREE.Color(PALETTE.accent).lerp(white, 0.35), [white]);
+  const white    = useMemo(() => new THREE.Color("#ffffff"), []);
+  const accent   = useMemo(() => new THREE.Color(PALETTE.accent), []);
+  const bodyTint = useMemo(() => new THREE.Color(PALETTE.accent).lerp(white, 0.3), [white]);
 
   const iconTexture = useMemo(
     () => makeIconTexture(icon.path, `#${icon.hex}`),
@@ -186,7 +169,6 @@ function Keycap({
     const t = state.clock.elapsedTime;
     const pressed = hovered ? -PRESS_DEPTH : 0;
 
-    // Subtle idle bob on hover
     bobAmp.current = THREE.MathUtils.lerp(bobAmp.current, hovered ? 1 : 0, 0.1);
     const bob = Math.sin(t * 3 + wavePhase) * 0.06 * bobAmp.current;
 
@@ -194,7 +176,7 @@ function Keycap({
     pressRef.current.position.y = pressY.current;
 
     if (matRef.current) {
-      const targetIntensity = 0.3 + bobAmp.current * 0.6;
+      const targetIntensity = 0.25 + bobAmp.current * 0.6;
       matRef.current.emissiveIntensity = THREE.MathUtils.lerp(
         matRef.current.emissiveIntensity, targetIntensity, 0.12
       );
@@ -203,11 +185,10 @@ function Keycap({
     }
   });
 
-  const handleOver = useCallback((e: { stopPropagation: () => void }) => {
-    e.stopPropagation();
-    onHoverChange(true);
-  }, [onHoverChange]);
-
+  const handleOver = useCallback(
+    (e: { stopPropagation: () => void }) => { e.stopPropagation(); onHoverChange(true); },
+    [onHoverChange]
+  );
   const handleOut = useCallback(() => onHoverChange(false), [onHoverChange]);
 
   return (
@@ -217,12 +198,12 @@ function Keycap({
           <meshPhysicalMaterial
             ref={matRef}
             color="#ffffff"
-            roughness={0.3}
-            clearcoat={0.5}
-            clearcoatRoughness={0.18}
+            roughness={0.28}
+            clearcoat={0.6}
+            clearcoatRoughness={0.15}
             metalness={0}
             emissive="#ffffff"
-            emissiveIntensity={0.3}
+            emissiveIntensity={0.25}
           />
         </mesh>
         <mesh
@@ -243,7 +224,6 @@ function Keyboard({ onHover }: { onHover: (icon: SkillIcon | null) => void }) {
   const ref = useRef<THREE.Group>(null);
   const [hoveredKey, setHoveredKey] = useState<string | null>(null);
 
-  // Update cursor and notify parent
   useEffect(() => {
     document.body.style.cursor = hoveredKey ? "pointer" : "auto";
     if (hoveredKey) {
@@ -262,8 +242,8 @@ function Keyboard({ onHover }: { onHover: (icon: SkillIcon | null) => void }) {
   useFrame((state) => {
     if (!ref.current) return;
     const t = state.clock.elapsedTime;
-    const w = (Math.PI * 2) / 9; // ~9s cycle
-    // Hero pose with cinematic idle swing
+    const w = (Math.PI * 2) / 9;
+    // Cinematic idle swing — same rhythm as original
     ref.current.rotation.y = Math.PI * 0.15 + Math.sin(t * w) * 0.45;
     ref.current.rotation.x = Math.PI * 0.18 + Math.sin(t * w * 0.6) * 0.07;
     ref.current.rotation.z = Math.PI * 0.025 + Math.sin(t * w * 0.8) * 0.04;
@@ -271,11 +251,11 @@ function Keyboard({ onHover }: { onHover: (icon: SkillIcon | null) => void }) {
   });
 
   const keycapGeom = useMemo(
-    () => createExtrudedBox(KEYCAP_SIZE, KEYCAP_SIZE, KEYCAP_HEIGHT, 0.05, 0.012, KEYCAP_TOP_SCALE),
+    () => createExtrudedBox(KEYCAP_SIZE, KEYCAP_SIZE, KEYCAP_HEIGHT, 0.06, 0.014, KEYCAP_TOP_SCALE),
     []
   );
   const baseGeom = useMemo(
-    () => createExtrudedBox(BASE_WIDTH, BASE_DEPTH, BASE_HEIGHT, 0.12, 0.02, 1),
+    () => createExtrudedBox(BASE_WIDTH, BASE_DEPTH, BASE_HEIGHT, 0.15, 0.025, 1),
     []
   );
   useEffect(() => () => { keycapGeom.dispose(); baseGeom.dispose(); }, [keycapGeom, baseGeom]);
@@ -284,8 +264,8 @@ function Keyboard({ onHover }: { onHover: (icon: SkillIcon | null) => void }) {
   const keycaps = [];
   for (let row = 0; row < ROWS; row++) {
     for (let col = 0; col < COLS; col++) {
-      const x = (col - (COLS - 1) / 2) * COL_SPACING;
-      const z = (row - (ROWS - 1) / 2) * ROW_SPACING;
+      const x  = (col - (COLS - 1) / 2) * COL_SPACING;
+      const z  = (row - (ROWS - 1) / 2) * ROW_SPACING;
       const id = `${row}-${col}`;
       keycaps.push(
         <Keycap
@@ -305,8 +285,13 @@ function Keyboard({ onHover }: { onHover: (icon: SkillIcon | null) => void }) {
 
   return (
     <group ref={ref}>
+      {/* Light blue base */}
       <mesh geometry={baseGeom}>
-        <meshStandardMaterial color={PALETTE.keyboardBase} roughness={0.55} metalness={0} />
+        <meshStandardMaterial
+          color={PALETTE.keyboardBase}
+          roughness={0.45}
+          metalness={0.05}
+        />
       </mesh>
       {keycaps}
     </group>
@@ -315,34 +300,40 @@ function Keyboard({ onHover }: { onHover: (icon: SkillIcon | null) => void }) {
 
 // ─── Public export ────────────────────────────────────────────────────────────
 export default function KeyboardScene() {
+  const { t } = useTranslation();
   const [hoveredIcon, setHoveredIcon] = useState<SkillIcon | null>(null);
+
+  // Translate the tagline via i18n key "keyboard.<slug>", fallback to title
+  const tagline = hoveredIcon
+    ? t(`keyboard.${hoveredIcon.slug}`, { defaultValue: "" })
+    : "";
 
   return (
     <div className="relative w-full h-full">
       <Canvas
-        camera={{ position: [1.5, 3.6, 11], fov: 22 }}
+        camera={{ position: [1.5, 3.2, 8.8], fov: 24 }}
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       >
-        <Environment resolution={128} environmentIntensity={0.3}>
-          <Lightformer intensity={1.1} color="#ffffff" position={[0, 6, -4]} rotation={[0, 0, 0]} scale={[12, 6, 1]} />
-          <Lightformer intensity={0.7} color="#ffffff" position={[-6, 2, 2]} rotation={[0, Math.PI / 2, 0]} scale={[6, 4, 1]} />
-          <Lightformer intensity={0.5} color="#ffffff" position={[6, 3, 1]} rotation={[0, -Math.PI / 2, 0]} scale={[6, 4, 1]} />
-          <Lightformer intensity={0.35} color="#ffffff" position={[0, -4, 3]} rotation={[Math.PI / 2, 0, 0]} scale={[8, 8, 1]} />
+        <Environment resolution={128} environmentIntensity={0.35}>
+          <Lightformer intensity={1.2} color="#ffffff" position={[0, 6, -4]}  rotation={[0, 0, 0]}              scale={[12, 6, 1]} />
+          <Lightformer intensity={0.8} color="#ffffff" position={[-6, 2, 2]}  rotation={[0, Math.PI / 2, 0]}    scale={[6, 4, 1]} />
+          <Lightformer intensity={0.6} color="#ffffff" position={[6, 3, 1]}   rotation={[0, -Math.PI / 2, 0]}   scale={[6, 4, 1]} />
+          <Lightformer intensity={0.4} color="#c8e6ff" position={[0, -4, 3]}  rotation={[Math.PI / 2, 0, 0]}    scale={[8, 8, 1]} />
         </Environment>
-        <ambientLight intensity={0.15} />
-        <directionalLight position={[-5, 8, 3]} intensity={2.4} />
-        <hemisphereLight intensity={0.25} color="#eaf2fb" groundColor="#0a1428" />
+        <ambientLight intensity={0.18} />
+        <directionalLight position={[-5, 8, 3]} intensity={2.6} />
+        <hemisphereLight intensity={0.3} color="#c8e6ff" groundColor="#0a1428" />
         <Keyboard onHover={setHoveredIcon} />
       </Canvas>
 
-      {/* HTML tooltip — no font file needed */}
+      {/* HTML tooltip — shows translated tech description */}
       <div
         className={`
           absolute bottom-6 left-1/2 -translate-x-1/2
-          px-4 py-2 rounded-xl text-center pointer-events-none
-          bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20
-          transition-all duration-300
+          px-5 py-2.5 rounded-xl text-center pointer-events-none
+          bg-white/10 backdrop-blur-md border border-white/20
+          transition-all duration-300 min-w-[180px]
           ${hoveredIcon ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}
         `}
       >
@@ -351,9 +342,11 @@ export default function KeyboardScene() {
             <p className="font-display text-sm font-bold text-white leading-tight">
               {hoveredIcon.title}
             </p>
-            <p className="font-body text-xs text-blue-200 mt-0.5">
-              {TAGLINES[hoveredIcon.slug] ?? ""}
-            </p>
+            {tagline && (
+              <p className="font-body text-xs text-[#5eb5f7] mt-0.5">
+                {tagline}
+              </p>
+            )}
           </>
         )}
       </div>
