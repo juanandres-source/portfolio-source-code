@@ -6,6 +6,7 @@ import { createRoot } from "react-dom/client";
 import superjson from "superjson";
 import App from "./App";
 import { getLoginUrl } from "./const";
+import "flag-icons/css/flag-icons.min.css";
 import "./index.css";
 import './i18n';
 

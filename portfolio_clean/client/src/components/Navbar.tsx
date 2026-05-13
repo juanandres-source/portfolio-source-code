@@ -1,36 +1,45 @@
 import { useTheme } from "@/contexts/ThemeContext";
 import { NAV_ITEMS } from "@/lib/constants";
-import { Menu, Moon, Sun, X } from "lucide-react";
+import { ChevronDown, Check, Menu, Moon, Sun, X } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/material-ui-dropdown-menu";
 import { useScrollEffect } from "@/hooks/useScrollEffect";
-// 1. Importamos el hook mágico
 import { useTranslation } from "react-i18next";
+
+const LANGUAGES = [
+  { code: "es", label: "Español", countryCode: "es" },
+  { code: "en", label: "English", countryCode: "gb" },
+  { code: "fr", label: "Français", countryCode: "fr" },
+];
 
 export default function Navbar() {
   const { theme, toggleTheme, switchable } = useTheme();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { scrollY } = useScrollEffect();
-  
-  // 2. Inicializamos la traducción y el controlador de idioma
   const { t, i18n } = useTranslation();
 
-  // Apply shadow and height change based on scroll
   const isScrolled = scrollY > 10;
 
-  // 3. Función para cambiar el idioma globalmente
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
   };
 
-  // Pequeña ayuda para comprobar el idioma activo (útil por si el navegador detecta 'es-ES' en vez de 'es' a secas)
-  const isCurrentLang = (lng: string) => i18n.language?.startsWith(lng);
+  const activeLang =
+    LANGUAGES.find((l) => i18n.language?.startsWith(l.code)) ?? LANGUAGES[0];
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 bg-background border-b border-border transition-all duration-300 ${
-        isScrolled ? "shadow-md" : "shadow-none"
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
+        isScrolled
+          ? "bg-background/80 backdrop-blur-md border-white/[0.07] shadow-md"
+          : "bg-transparent border-transparent shadow-none"
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -64,7 +73,6 @@ export default function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05, duration: 0.3 }}
               >
-                {/* 4. Usamos la función t() conectada al JSON */}
                 {t(`nav.${item.label.toLowerCase()}`)}
                 <motion.div
                   className="absolute bottom-0 left-0 h-0.5 bg-primary origin-left"
@@ -77,34 +85,37 @@ export default function Navbar() {
           </div>
 
           {/* Right Side Controls */}
-          <div className="flex items-center gap-4">
-            {/* Language Switcher */}
+          <div className="flex items-center gap-3">
+            {/* Language Dropdown */}
             <motion.div
-              className="flex gap-2 border border-border rounded-lg p-1"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <button
-                onClick={() => changeLanguage("es")}
-                className={`px-2 py-1 text-xs font-medium rounded transition-colors ${
-                  isCurrentLang("es")
-                    ? "bg-primary text-primary-foreground"
-                    : "text-foreground hover:bg-secondary"
-                }`}
-              >
-                ES
-              </button>
-              <button
-                onClick={() => changeLanguage("en")}
-                className={`px-2 py-1 text-xs font-medium rounded transition-colors ${
-                  isCurrentLang("en")
-                    ? "bg-primary text-primary-foreground"
-                    : "text-foreground hover:bg-secondary"
-                }`}
-              >
-                EN
-              </button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-lg border border-border hover:bg-secondary transition-colors">
+                    <span className={`fi fi-${activeLang.countryCode} rounded-sm`} style={{ width: 18, height: 13, display: "inline-block" }} />
+                    <span className="uppercase">{activeLang.code}</span>
+                    <ChevronDown className="h-3 w-3 text-muted-foreground" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-36">
+                  {LANGUAGES.map((lang) => (
+                    <DropdownMenuItem
+                      key={lang.code}
+                      onClick={() => changeLanguage(lang.code)}
+                      className="flex items-center gap-2 cursor-pointer"
+                    >
+                      <span className={`fi fi-${lang.countryCode} rounded-sm`} style={{ width: 18, height: 13, display: "inline-block" }} />
+                      <span className="flex-1 text-sm">{lang.label}</span>
+                      {i18n.language?.startsWith(lang.code) && (
+                        <Check className="h-3.5 w-3.5 text-primary" />
+                      )}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </motion.div>
 
             {/* Theme Toggle */}
@@ -187,6 +198,23 @@ export default function Navbar() {
                 {t(`nav.${item.label.toLowerCase()}`)}
               </motion.a>
             ))}
+            {/* Mobile Language Switcher */}
+            <div className="flex gap-2 px-4 pt-2">
+              {LANGUAGES.map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => { changeLanguage(lang.code); setMobileMenuOpen(false); }}
+                  className={`flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium rounded-lg border transition-colors ${
+                    i18n.language?.startsWith(lang.code)
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "border-border text-foreground hover:bg-secondary"
+                  }`}
+                >
+                  <span className={`fi fi-${lang.countryCode} rounded-sm`} style={{ width: 16, height: 12, display: "inline-block" }} />
+                  <span className="uppercase">{lang.code}</span>
+                </button>
+              ))}
+            </div>
           </motion.div>
         )}
       </div>
